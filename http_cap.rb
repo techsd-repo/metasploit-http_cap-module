@@ -86,7 +86,7 @@ class Metasploit3 < Msf::Auxiliary
 
 	if #{datastore['CHKCREDS']} == "true" and #{datastore['CHKONLYUSER']} == "true"
       if #{datastore['CHKONLYPASS']} == "false"
-    creds = 22
+    creds = 21
     print_status("Checking for creds (only the username)")
     print_status("Listening on #{datastore['SRVHOST']}:#{datastore['SRVPORT']}")
     exploit
@@ -96,6 +96,7 @@ class Metasploit3 < Msf::Auxiliary
   if #{datastore['CHKCREDS']} == "true" and #{datastore[CHKONLYPASS]} == "true"
     if #{datastore['CHKONLYUSER']} == "false"
 
+      creds = 22
       print_status("Checking for creds (only the password)")
       print_status("Listening on #{datastore['SRVHOST']}:#{datastore['SRVPORT']}")
       exploit
