@@ -68,15 +68,13 @@ class Metasploit3 < Msf::Auxiliary
 
     if #{datastore['CHKCRDS']} == "false"
 	print_status("Listening on #{datastore['SRVHOST']}:#{datastore['SRVPORT']}")
-	print_status("Not checking for creds")
-	creds = 11       
+	print_status("Not checking for creds")       
 	exploit
 		
 
    end
-	if #{datastore['CHKCREDS']} == "true" and #{datastore['CHKONLYUSER']} == "false"
+	if #{datastore['CHKCRDS']} == "true" and #{datastore['CHKONLYUSER']} == "false"
 	   if #{datastore['CHKONLYPASS']} == "false"
-	     creds = 23
 	     print_status("Checking for creds(both the username and password)")
 	     print_status("Listening on #{datastore['SRVHOST']}:#{datastore['SRVPORT']}")
 	     exploit
@@ -84,19 +82,17 @@ class Metasploit3 < Msf::Auxiliary
    end	
   end
 
-	if #{datastore['CHKCREDS']} == "true" and #{datastore['CHKONLYUSER']} == "true"
+	if #{datastore['CHKCRDS']} == "true" and #{datastore['CHKONLYUSER']} == "true"
       if #{datastore['CHKONLYPASS']} == "false"
-    creds = 21
     print_status("Checking for creds (only the username)")
     print_status("Listening on #{datastore['SRVHOST']}:#{datastore['SRVPORT']}")
     exploit
   end
  end
 
-  if #{datastore['CHKCREDS']} == "true" and #{datastore[CHKONLYPASS]} == "true"
+  if #{datastore['CHKCRDS']} == "true" and #{datastore[CHKONLYPASS]} == "true"
     if #{datastore['CHKONLYUSER']} == "false"
 
-      creds = 22
       print_status("Checking for creds (only the password)")
       print_status("Listening on #{datastore['SRVHOST']}:#{datastore['SRVPORT']}")
       exploit
@@ -121,7 +117,16 @@ end
         :active      => true
       )
 
-      print_good("#{cli.peerhost} - Credential collected: User: #{user} Password:#{pass} SRVHOST: #{datastore['SRVHOST']}:#{[datastore['SRVPORT']]} => #{req.resource}")
+      if #{datastore['CHKCRDS']} == "false"
+        print_good("Credentials found! - User: #{user} Pass: #{pass} Server: #{datastore['SRVHOST']}:#{datastore['SRVPORT']} Client: #{cli.peerhost}")
+        print_status("Credentials are not set to be matched")
+      elsif #{datastore['CHKCRDS']} == "true"
+        if condition
+          
+        end
+        
+        
+      end
       
 
        
