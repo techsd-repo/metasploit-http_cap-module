@@ -1,7 +1,6 @@
 ##
 # This module requires Metasploit: http//metasploit.com/download
 # Current source: https://github.com/rapid7/metasploit-framework
-#THIS MODULE IS NOT DONE
 ##
 
 require 'msf/core'
@@ -85,10 +84,25 @@ class Metasploit3 < Msf::Auxiliary
    end	
   end
 
-	if #{datastore['CHKCREDS']} == "true" and #{datastore['CHKONLYUSER']}
+	if #{datastore['CHKCREDS']} == "true" and #{datastore['CHKONLYUSER']} == "true"
+      if #{datastore['CHKONLYPASS']} == "false"
     creds = 22
-    print_status("Checking for creds (only the )")
+    print_status("Checking for creds (only the username)")
+    print_status("Listening on #{datastore['SRVHOST']}:#{datastore['SRVPORT']}")
+    exploit
+  end
+ end
 
+  if #{datastore['CHKCREDS']} == "true" and #{datastore[CHKONLYPASS]} == "true"
+    if #{datastore['CHKONLYUSER']} == "false"
+
+      print_status("Checking for creds (only the password)")
+      print_status("Listening on #{datastore['SRVHOST']}:#{datastore['SRVPORT']}")
+      exploit
+
+    
+  end
+ end
 end
 
   def on_request_uri(cli, req)
